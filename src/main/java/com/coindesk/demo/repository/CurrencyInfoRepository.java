@@ -5,14 +5,14 @@ import org.springframework.stereotype.Repository;
 import com.coindesk.demo.entity.CurrencyInfo;
 
 @Repository
-public interface CurrencyInfoRepository extends JpaRepository<CurrencyInfo, Integer>{
+public interface CurrencyInfoRepository extends JpaRepository<CurrencyInfo, Integer> {
 
-	/**
-	 * 依幣別代碼查詢
-	 * 
-	 * @param code
-	 * @return
-	 */
-	CurrencyInfo findByCode(String code);
+  /**
+   * 依幣別代碼查詢
+   * 
+   * @param code
+   * @return
+   */
+  CurrencyInfo findByCode(String code);
 
 }

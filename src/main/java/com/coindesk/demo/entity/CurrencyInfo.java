@@ -14,15 +14,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer"})
 public class CurrencyInfo implements Serializable {
 
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 8550923909861083619L;
+  private static final long serialVersionUID = 1L;
 
   private Integer id;
-
   private String code;
-
   private String name;
 
   public CurrencyInfo() {}

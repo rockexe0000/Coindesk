@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import com.coindesk.demo.entity.CurrencyInfo;
 import com.coindesk.demo.service.CoinDeskService;
 import com.coindesk.demo.service.CurrencyInfoService;
+import com.coindesk.demo.vo.Currency;
 import com.coindesk.demo.vo.CurrentPrice;
 import com.coindesk.demo.vo.CurrentPriceResponse;
 import com.coindesk.demo.vo.Price;
@@ -37,7 +39,6 @@ public class CoinDeskServiceImpl implements CoinDeskService {
     try {
       currentPrice = convert(resp);
     } catch (ParseException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     return currentPrice;
@@ -71,37 +72,23 @@ public class CoinDeskServiceImpl implements CoinDeskService {
     List<Price> list = new LinkedList<>();
     for (CurrencyInfo currencyInfo : currencyInfoService.findAll()) {
       Price price = new Price();
-      switch (currencyInfo.getCode()) {
-        case "USD":
-          if (resp.getBpi().getUsd() != null) {
-            // price.setId(currencyInfo.getId());
-            price.setCode(currencyInfo.getCode());
-            price.setName(currencyInfo.getName());
-            price.setPrice(resp.getBpi().getUsd().getRate_float());
-            list.add(price);
-          }
-          break;
-        case "GBP":
-          if (resp.getBpi().getGbp() != null) {
-            // price.setId(currencyInfo.getId());
-            price.setCode(currencyInfo.getCode());
-            price.setName(currencyInfo.getName());
-            price.setPrice(resp.getBpi().getGbp().getRate_float());
-            list.add(price);
-          }
-          break;
-        case "EUR":
-          if (resp.getBpi().getEur() != null) {
-            // price.setId(currencyInfo.getId());
-            price.setCode(currencyInfo.getCode());
-            price.setName(currencyInfo.getName());
-            price.setPrice(resp.getBpi().getEur().getRate_float());
-            list.add(price);
-          }
-          break;
+
+      Map<String, Currency> bpi = resp.getBpi();
+      if (currencyInfo.getCode() != null) {
+        Currency currency = bpi.get(currencyInfo.getCode());
+        if (currency != null) {
+          // price.setId(currencyInfo.getId());
+          price.setCode(currencyInfo.getCode());
+          price.setName(currencyInfo.getName());
+          price.setPrice(currency.getRate_float());
+          list.add(price);
+        }
       }
+
     }
+
     currentPrice.setPriceList(list);
+
     return currentPrice;
   }
 

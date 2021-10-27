@@ -7,10 +7,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CurrentPrice implements Serializable {
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 6541705226053432279L;
+
+  private static final long serialVersionUID = 1L;
 
   private Date updateTime;
 
