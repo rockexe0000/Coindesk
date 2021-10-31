@@ -2,6 +2,7 @@ package com.coindesk.demo.vo;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Currency implements Serializable {
 
@@ -10,13 +11,14 @@ public class Currency implements Serializable {
   private String code;
   private String description;
   private String rate;
-  private BigDecimal rate_float;
+  @JsonProperty("rate_float")
+  private BigDecimal rateFloat;
   private String symbol;
 
   @Override
   public String toString() {
     return "Currency [code=" + code + ", description=" + description + ", rate=" + rate
-        + ", rate_float=" + rate_float + ", symbol=" + symbol + "]";
+        + ", rate_float=" + rateFloat + ", symbol=" + symbol + "]";
   }
 
   public String getCode() {
@@ -43,12 +45,12 @@ public class Currency implements Serializable {
     this.rate = rate;
   }
 
-  public BigDecimal getRate_float() {
-    return rate_float;
+  public BigDecimal getRateFloat() {
+    return rateFloat;
   }
 
-  public void setRate_float(BigDecimal rate_float) {
-    this.rate_float = rate_float;
+  public void setRateFloat(BigDecimal rateFloat) {
+    this.rateFloat = rateFloat;
   }
 
   public String getSymbol() {

@@ -13,7 +13,7 @@ public class CurrentPrice implements Serializable {
   private Date updateTime;
 
   @JsonProperty("currencyList")
-  private List<Price> priceList;
+  private transient List<Price> priceList;
 
   @Override
   public String toString() {

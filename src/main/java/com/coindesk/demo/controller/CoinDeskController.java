@@ -21,8 +21,7 @@ public class CoinDeskController {
 
   @GetMapping("transform")
   public CurrentPrice getTransformCurrentPrice() {
-    CurrentPrice currentPrice = coinDeskService.getCurrentPrice();
-    return currentPrice;
+    return coinDeskService.findCurrentPrice();
   }
 
 }

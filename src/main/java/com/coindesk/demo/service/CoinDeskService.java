@@ -5,7 +5,7 @@ import com.coindesk.demo.vo.CurrentPriceResponse;
 
 public interface CoinDeskService {
 
-  CurrentPrice getCurrentPrice();
+  CurrentPrice findCurrentPrice();
 
   CurrentPriceResponse callCoinDeskApi();
 

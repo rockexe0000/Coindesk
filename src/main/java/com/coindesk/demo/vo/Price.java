@@ -3,23 +3,14 @@ package com.coindesk.demo.vo;
 import java.math.BigDecimal;
 
 public class Price {
-  // private Integer id;
   private String code;
   private String name;
-  private BigDecimal price;
+  private BigDecimal rate;
 
   @Override
   public String toString() {
-    return "Prices [code=" + code + ", name=" + name + ", price=" + price + "]";
+    return "Prices [code=" + code + ", name=" + name + ", rate=" + rate + "]";
   }
-
-  // public Integer getId() {
-  // return id;
-  // }
-
-  // public void setId(Integer id) {
-  // this.id = id;
-  // }
 
   public String getCode() {
     return code;
@@ -37,11 +28,11 @@ public class Price {
     this.name = name;
   }
 
-  public BigDecimal getPrice() {
-    return price;
+  public BigDecimal getRate() {
+    return rate;
   }
 
-  public void setPrice(BigDecimal price) {
-    this.price = price;
+  public void setRate(BigDecimal rate) {
+    this.rate = rate;
   }
 }

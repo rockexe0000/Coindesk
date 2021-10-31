@@ -8,9 +8,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class CoinDeskServiceImpl implements CoinDeskService {
   private String url;
 
   @Override
-  public CurrentPrice getCurrentPrice() {
+  public CurrentPrice findCurrentPrice() {
     CurrentPriceResponse resp = callCoinDeskApi();
     CurrentPrice currentPrice = null;
     try {
@@ -46,12 +46,11 @@ public class CoinDeskServiceImpl implements CoinDeskService {
 
   @Override
   public CurrentPriceResponse callCoinDeskApi() {
-    HttpClient httpClient = HttpClients.createDefault();
-    HttpResponse httpResponse = null;
+    CloseableHttpResponse httpResponse = null;
     String result = "";
     HttpGet httpGet = new HttpGet(url);
     CurrentPriceResponse resp = null;
-    try {
+    try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
       httpResponse = httpClient.execute(httpGet);
       HttpEntity httpEntity = httpResponse.getEntity();
       if (httpEntity != null) {
@@ -62,6 +61,7 @@ public class CoinDeskServiceImpl implements CoinDeskService {
     } catch (IOException e) {
       e.printStackTrace();
     }
+
     return resp;
   }
 
@@ -77,10 +77,9 @@ public class CoinDeskServiceImpl implements CoinDeskService {
       if (currencyInfo.getCode() != null) {
         Currency currency = bpi.get(currencyInfo.getCode());
         if (currency != null) {
-          // price.setId(currencyInfo.getId());
           price.setCode(currencyInfo.getCode());
           price.setName(currencyInfo.getName());
-          price.setPrice(currency.getRate_float());
+          price.setRate(currency.getRateFloat());
           list.add(price);
         }
       }
